@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-teal: #082d32;
-            --bg-panel: rgba(7, 20, 26, 0.94);
+            --bg-panel: rgba(7, 20, 26, 0.95);
             --border-panel: #14b8a6;
             --trace-color: #0d9488;
             --trace-glow: #2dd4bf;
@@ -23,7 +23,7 @@
             padding: 0;
         }
 
-        /* Custom Old-School Retro Teal Cursor (Base64 Encoded for Cross-Browser Support) */
+        /* Custom Old-School Retro Teal Cursor (Base64 Encoded) */
         body {
             background-color: var(--bg-teal);
             color: var(--text-main);
@@ -37,11 +37,11 @@
         }
 
         /* Interactive Element Cursor (Crosshair / Pointer) */
-        button, a, input, .nav-item, .tab-btn {
+        button, a, input, .nav-item, .tab-btn, .proj-img {
             cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMmRkNGJmIiBzdHJva2U9IiMwODJkMzIiIHN0cm9rZS13aWR0aD0iMS41Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTEyIDJ2NG0wIDEydjRNMiAxMmg0bTEyIDBoNCIvPjwvc3ZnPg==') 12 12, pointer !important;
         }
 
-        /* SVG Circuit Trace Background Layer */
+        /* SHIMMERING BACKGROUND CIRCUITS */
         .circuit-bg-full {
             position: fixed;
             top: 0;
@@ -50,10 +50,17 @@
             height: 100vh;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.65;
+            opacity: 0.6;
+            animation: circuitShimmer 4s infinite ease-in-out;
         }
 
-        /* Main Workspace Container */
+        @keyframes circuitShimmer {
+            0% { opacity: 0.5; filter: drop-shadow(0 0 2px rgba(45, 212, 191, 0.3)); }
+            50% { opacity: 0.9; filter: drop-shadow(0 0 10px rgba(45, 212, 191, 0.9)); }
+            100% { opacity: 0.5; filter: drop-shadow(0 0 2px rgba(45, 212, 191, 0.3)); }
+        }
+
+        /* STABLE FOREGROUND WORKSPACE */
         .workspace {
             position: relative;
             z-index: 2;
@@ -170,6 +177,94 @@
             font-weight: bold;
         }
 
+        /* 3-IMAGE GALLERY GRID */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 15px 0 20px 0;
+        }
+
+        .proj-img-wrapper {
+            background: rgba(3, 24, 26, 0.8);
+            border: 1px solid var(--border-panel);
+            border-radius: 4px;
+            padding: 6px;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .proj-img-wrapper:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--trace-glow);
+            transform: translateY(-2px);
+        }
+
+        .proj-img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 2px;
+            border: 1px solid rgba(20, 184, 166, 0.4);
+        }
+
+        .img-caption {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        /* LIGHTBOX MODAL FOR ENLARGED IMAGES */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgba(4, 18, 21, 0.92);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            max-width: 85vw;
+            max-height: 80vh;
+            border: 2px solid var(--border-panel);
+            border-radius: 6px;
+            box-shadow: 0 0 25px var(--trace-glow);
+        }
+
+        .modal-caption {
+            margin-top: 15px;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 25px; right: 35px;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            font-weight: bold;
+            background: rgba(7, 20, 26, 0.9);
+            border: 1px solid var(--border-panel);
+            padding: 8px 14px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .close-modal:hover {
+            background: var(--border-panel);
+            color: #042f2e;
+            box-shadow: 0 0 12px var(--trace-glow);
+        }
+
         .ascii-view {
             background: #03181a;
             border: 1px solid var(--border-panel);
@@ -206,7 +301,7 @@
 </head>
 <body>
 
-    <!-- Circuit Lines SVG overlay covering left, right, and bottom margin spaces -->
+    <!-- Background Circuit Lines & Chips -->
     <svg class="circuit-bg-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <pattern id="circuit-grid" width="120" height="120" patternUnits="userSpaceOnUse">
@@ -273,10 +368,10 @@
         <!-- Top Header Panel -->
         <div class="panel header-panel">
             <div class="sys-title">
-                <span class="status-dot"></span> OPERATOR_PORTFOLIO
+                <span class="status-dot"></span> OPERATOR_LOG :: SCHEMATIC_VIEW
             </div>
             <div style="font-size: 0.8rem; color: var(--text-muted);">
-                IP: 127.0.0.1 | STATUS: ACTIVE
+                NODE: 10.0.10.1/24 | STATUS: ACTIVE
             </div>
         </div>
 
@@ -295,22 +390,22 @@
 
         <!-- Central Workstation Panel -->
         <div class="panel main-panel">
-            <!-- About Section (Top choice & default landing) -->
+            <!-- About Section (Shown by default) -->
             <div id="about-view">
                 <div class="panel-header" style="margin-bottom: 15px; border-radius: 4px;">
                     <span>Operator Profile</span>
                 </div>
-                    <div class="code-view" style="font-size: 0.95rem; line-height: 1.6; padding: 20px;">
-                            <p style="color: var(--accent-cyan); margin-bottom: 12px; font-size: 1.05rem; font-weight: bold;">> Meet the Operator</p>
-                            <p style="margin-bottom: 12px;">Hi! My name is Emma, an IT Specialist and network engineering student with a passion for systems architecture, hardware tinkering, and cybersecurity operations.</p>
-                            <p style="margin-bottom: 12px;">From Network Engineering and systems administration to computer repair, hardware reverse-engineering, and security hardening:</p>
-                            <p style="margin-bottom: 12px;">I love exploring how things work, using my skills to make people's jobs run smoothly, and expanding my technical expertise across every layer of the stack!</p>
-                            <p style="margin-bottom: 12px;">Professionally, I bring hands-on experience in IT support, computer repair, and maintaining public library technology infrastructure—including deploying sandboxed kiosk environments and self-service print management solutions.</p>
-                            <p>Outside of work and my networking studies, I am an enthusiastic hardware hobbyist. I enjoy building custom input controllers and keyboard matrices by interfacing microcontrollers (like the Teensy 4.1) with multiplexers and analog switches, blending software scripting with low-level electronics.</p>
-                    </div>
+                <div class="code-view" style="font-size: 0.95rem; line-height: 1.6; padding: 20px;">
+                    <p style="color: var(--accent-cyan); margin-bottom: 12px; font-size: 1.05rem; font-weight: bold;">> Meet the Operator</p>
+                    <p style="margin-bottom: 12px;">Hi! My name is Emma, an IT Specialist and network engineering student with a passion for systems architecture, hardware tinkering, and cybersecurity operations.</p>
+                    <p style="margin-bottom: 12px;">From Network Engineering and systems administration to computer repair, hardware reverse-engineering, and security hardening:</p>
+                    <p style="margin-bottom: 12px;">I love exploring how things work, using my skills to make people's jobs run smoothly, and expanding my technical expertise across every layer of the stack!</p>
+                    <p style="margin-bottom: 12px;">Professionally, I bring hands-on experience in IT support, computer repair, and maintaining public library technology infrastructure—including deploying sandboxed kiosk environments and self-service print management solutions.</p>
+                    <p>Outside of work and my networking studies, I am an enthusiastic hardware hobbyist. I enjoy building custom input controllers and keyboard matrices by interfacing microcontrollers (like the Teensy 4.1) with multiplexers and analog switches, blending software scripting with low-level electronics.</p>
+                </div>
             </div>
 
-            <!-- Projects Section -->
+            <!-- Projects Section (Hidden by default) -->
             <div id="projects-view" style="display: none;">
                 <div class="panel-header" style="margin-bottom: 15px; border-radius: 4px;">
                     <span>Project Workbench Logs</span>
@@ -318,84 +413,111 @@
                 </div>
 
                 <div class="project-tabs">
-                    <button class="tab-btn active" onclick="loadProject(0)">1. Pentest Lab Isolation</button>
-                    <button class="tab-btn" onclick="loadProject(1)">2. Hardware HID Matrix</button>
+                    <button class="tab-btn active" onclick="loadProject(0)">1. AlphaSmart Matrix</button>
+                    <button class="tab-btn" onclick="loadProject(1)">2. Pentest Lab Isolation</button>
                     <button class="tab-btn" onclick="loadProject(2)">3. Sandboxed Print Server</button>
                 </div>
 
-                <h3 id="proj-title" style="color: var(--accent-cyan); margin-bottom: 8px;">Isolated Pen-Testing Lab</h3>
+                <h3 id="proj-title" style="color: var(--accent-cyan); margin-bottom: 8px;">AlphaSmart 3000 USB Matrix Controller</h3>
                 <p id="proj-desc" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">
-                    Segmented virtual lab using pfSense firewall policies to isolate penetration testing nodes from production traffic.
+                    Decoded an AlphaSmart 3000 passive key matrix and engineered a custom USB HID controller interface using a Teensy 4.1 microcontroller, CD4066 bilateral analog switches, and multiplexers.
                 </p>
+
+                <!-- 3-Image Gallery Container -->
+                <div id="proj-gallery" class="image-gallery"></div>
 
                 <div class="panel-header" style="margin-bottom: 8px; border-radius: 4px;">Topology Schematic</div>
                 <pre class="ascii-view" id="proj-ascii">
-+------------------+      +-------------------+      +-------------------+
-|  Attacker VM     | ---> | Firewall Isolation| ---> | Target Subnet     |
-| (Kali Linux)     |      |  (pfSense Rules)  |      | (Metasploitable)  |
-+------------------+      +-------------------+      +-------------------+
-        |                          |                          |
-        +-------[ VLAN 10 ]--------+--------[ VLAN 20 ]-------+
++-----------------------+      +------------------------+      +------------------------+
+| AlphaSmart 3000       | ---> | Multiplexers & CD4066  | ---> | Teensy 4.1             |
+| Key Matrix (Rows/Cols)|      | Bilateral Switches     |      | USB HID Controller     |
++-----------------------+      +------------------------+      +------------------------+
+            |                               |                              |
+            +-----[ Row Multiplexing ]------+-----[ Analog Switch Array ]--+-----[ USB Output ]
                 </pre>
 
                 <div class="panel-header" style="margin-bottom: 8px; border-radius: 4px;">Config Snippet</div>
                 <pre class="code-view" id="proj-code">
-# Firewall Isolation Policy
-iptables -A FORWARD -s 10.0.10.0/24 -d 10.0.20.0/24 -j DROP
+// Teensy 4.1 AlphaSmart Matrix Decoding Snippet
+#include &lt;USBHost_t36.h&gt;
+
+const int rowPins[8] = {2, 3, 4, 5, 6, 7, 8, 9};
+const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
                 </pre>
             </div>
 
-            <!-- Skills Section -->
+            <!-- Skills Section (Hidden by default) -->
             <div id="skills-view" style="display: none;">
                 <div class="panel-header" style="margin-bottom: 15px; border-radius: 4px;">
                     <span>Technical Capabilities Matrix</span>
                 </div>
                 <div class="code-view">
                     <p style="color: var(--accent-cyan); margin-bottom: 10px;">// NETWORKING & SYSTEMS</p>
-                    <p>• VLAN Tagging (802.1Q), Routing Protocols, pfSense/OPNsense Firewall Rules</p>
-                    <p>• Linux System Administration, Sandboxed Kiosk Deployments, Network Capture (Wireshark)</p>
+                    <p>• VLAN Tagging (802.1Q), Inter-VLAN Routing, pfSense/OPNsense Firewall Rulesets</p>
+                    <p>• Linux System Administration, Network Capture & analysis (Wireshark), Sandboxed deployments</p>
                     <br>
-                    <p style="color: var(--accent-cyan); margin-bottom: 10px;">// HARDWARE & DEV</p>
-                    <p>• Microcontrollers (Teensy 4.1), Matrix Decoding, Multiplexers & CD4066 Analog Switches</p>
-                    <p>• Scripting & Dev: Python, Bash, C++ (Teensy HID), HTML/CSS/JavaScript</p>
+                    <p style="color: var(--accent-cyan); margin-bottom: 10px;">// HARDWARE SYNTHESIS & DEV</p>
+                    <p>• Microcontrollers (Teensy 4.1), Matrix Scanning, CD4066 Analog Switching, Multiplexing</p>
+                    <p>• C++ (Teensy HID), Python, Bash Automation, HTML/CSS/Vanilla JavaScript</p>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-modal" class="modal" onclick="closeModal()">
+        <button class="close-modal" onclick="closeModal()">[x] CLOSE</button>
+        <img id="modal-img" class="modal-content" src="" alt="Enlarged View">
+        <div id="modal-caption" class="modal-caption"></div>
     </div>
 
     <script>
         const projects = [
             {
                 tag: "PROJ_01",
+                title: "AlphaSmart 3000 USB Matrix Controller",
+                desc: "Decoded an AlphaSmart 3000 passive key matrix and engineered a custom USB HID controller interface using a Teensy 4.1 microcontroller, CD4066 bilateral analog switches, and multiplexers. Alphasmart3000 now uses a mechanical keyboard instead of the original membrane keyboard, and now features a closing, briefcase-style enclosure for portability and durability.",
+                images: [
+                    { src: "images/KeyMatrix.png", caption: "Key Matrix Pinout" },
+                    { src: "images/teensy_wiring.jpg", caption: "Teensy & CD4066 Circuit" },
+                    { src: "images/final_assembly.jpg", caption: "Assembled Controller" }
+                ],
+                ascii: `+-----------------------+      +------------------------+      +------------------------+
+| AlphaSmart 3000       | ---> | Multiplexers & CD4066  | ---> | Teensy 4.1             |
+| Key Matrix (Rows/Cols)|      | Bilateral Switches     |      | USB HID Controller     |
++-----------------------+      +------------------------+      +------------------------+
+            |                               |                              |
+            +-----[ Row Multiplexing ]------+-----[ Analog Switch Array ]--+-----[ USB Output ]`,
+                code: `// Teensy 4.1 AlphaSmart Matrix Decoding Snippet
+#include <USBHost_t36.h>
+
+const int rowPins[8] = {2, 3, 4, 5, 6, 7, 8, 9};
+const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};`
+            },
+            {
+                tag: "PROJ_02",
                 title: "Isolated Pen-Testing Lab",
-                desc: "Segmented virtual lab using pfSense firewall policies to isolate penetration testing nodes from production traffic.",
+                desc: "Segmented virtual lab utilizing stateful pfSense firewall policies to perfectly isolate penetration testing nodes from production subnets.",
+                images: [],
                 ascii: `+------------------+      +-------------------+      +-------------------+
 |  Attacker VM     | ---> | Firewall Isolation| ---> | Target Subnet     |
 | (Kali Linux)     |      |  (pfSense Rules)  |      | (Metasploitable)  |
 +------------------+      +-------------------+      +-------------------+
         |                          |                          |
-        +-------[ VLAN 10 ]--------+--------[ VLAN 20 ]-------+`,
-                code: `# Firewall Isolation Policy\niptables -A FORWARD -s 10.0.10.0/24 -d 10.0.20.0/24 -j DROP`
-            },
-            {
-                tag: "PROJ_02",
-                title: "Custom Hardware HID Matrix Controller",
-                desc: "Decoded a keyboard matrix using a Teensy 4.1 microcontroller, CD4066 analog switches, and multiplexers for custom USB input mapping.",
-                ascii: `+------------------+      +-------------------+      +-------------------+
-| Matrix Hardware  | ---> | Mux / CD4066      | ---> | Teensy 4.1        |
-| (Switch Board)   |      | (Analog Switches) |      | (USB HID Firmware)|
-+------------------+      +-------------------+      +-------------------+`,
-                code: `// Teensy HID Matrix Scan\nvoid loop() {\n    digitalWrite(colPin, LOW);\n    if (digitalRead(rowPin) == LOW) {\n        Keyboard.press(KEY_MOD);\n    }\n}`
+        +-------[ VLAN 10 ]--------+--------[ VLAN 20 ]-------+
+                10.0.10.0/24                 10.0.20.0/24`,
+                code: `# Firewall Isolation Policy - Block inter-VLAN movement\niptables -A FORWARD -s 10.0.10.0/24 -d 10.0.20.0/24 -j DROP`
             },
             {
                 tag: "PROJ_03",
                 title: "Sandboxed Print Server Deployment",
-                desc: "Configured an isolated self-service SavaPage print server restricting network printing to sandboxed subnets with automated quota enforcement.",
+                desc: "Self-hosted print isolation server configuration (SavaPage), dynamically restricting secure printing access based on subnet and quota.",
+                images: [],
                 ascii: `+------------------+      +-------------------+      +-------------------+
 | User Workstation | ---> | SavaPage Server   | ---> | Isolated Printer  |
-| (Web Portal)     |      | (Print Engine)    |      | Device (CUPS)     |
+| (Web Print Portal|      | (Quota Engine)    |      | Device (CUPS)     |
 +------------------+      +-------------------+      +-------------------+`,
-                code: `# CUPS Printer Subnet Rule\n<Printer Isolated_Print_Node>\n  Order deny,allow\n  Deny from all\n  Allow from 192.168.10.0/24\n</Printer>`
+                code: `# CUPS Printer Subnet ACL\n<Printer Isolated_Printer_Node>\n  Order deny,allow\n  Deny from all\n  Allow from 192.168.10.0/24\n</Printer>`
             }
         ];
 
@@ -409,6 +531,34 @@ iptables -A FORWARD -s 10.0.10.0/24 -d 10.0.20.0/24 -j DROP
             document.getElementById('proj-desc').innerText = p.desc;
             document.getElementById('proj-ascii').innerText = p.ascii;
             document.getElementById('proj-code').innerText = p.code;
+
+            // Render 3-image gallery if images exist
+            const gallery = document.getElementById('proj-gallery');
+            if (gallery) {
+                if (p.images && p.images.length > 0) {
+                    gallery.style.display = 'grid';
+                    gallery.innerHTML = p.images.map(img => `
+                        <div class="proj-img-wrapper">
+                            <img class="proj-img" src="${img.src}" alt="${img.caption}" onclick="openModal('${img.src}', '${img.caption}')">
+                            <div class="img-caption">${img.caption}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    gallery.style.display = 'none';
+                    gallery.innerHTML = '';
+                }
+            }
+        }
+
+        function openModal(src, caption) {
+            const modal = document.getElementById('image-modal');
+            document.getElementById('modal-img').src = src;
+            document.getElementById('modal-caption').innerText = caption;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('image-modal').style.display = 'none';
         }
 
         function showSection(section) {
@@ -421,6 +571,9 @@ iptables -A FORWARD -s 10.0.10.0/24 -d 10.0.20.0/24 -j DROP
             document.getElementById('projects-view').style.display = section === 'projects' ? 'block' : 'none';
             document.getElementById('skills-view').style.display = section === 'skills' ? 'block' : 'none';
         }
+
+        // Initialize default view gallery on page load
+        loadProject(0);
     </script>
 </body>
 </html>
