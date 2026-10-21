@@ -23,6 +23,34 @@
             padding: 0;
         }
 
+        /* CUSTOM RETRO TEAL CRT SCROLLBARS FOR ALL PANELS */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-panel) #03181a;
+        }
+
+        *::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: #03181a;
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            border-radius: 4px;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background: var(--border-panel);
+            border-radius: 4px;
+            box-shadow: 0 0 6px var(--trace-glow);
+        }
+
+        *::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--trace-glow);
+        }
+
         /* Custom Old-School Retro Teal Cursor (Base64 Encoded) */
         body {
             background-color: var(--bg-teal);
@@ -375,7 +403,6 @@
             <rect x="25" y="120" width="40" height="90" fill="#042023" rx="2"/>
             <circle cx="35" cy="130" r="3" fill="#2dd4bf"/>
             <path d="M 65 140 H 105 L 125 160 H 180" />
-            <!-- Animated data signal tracer -->
             <path class="data-pulse" d="M 65 140 H 105 L 125 160 H 180" />
             <path d="M 65 160 H 115 L 135 180 H 190" />
             <path d="M 65 180 H 125 L 145 200 H 200" />
@@ -460,7 +487,7 @@
 
                 <div class="project-tabs">
                     <button class="tab-btn active" onclick="loadProject(0)">1. AlphaSmart Matrix</button>
-                    <button class="tab-btn" onclick="loadProject(1)">2. Pentest Lab Isolation</button>
+                    <button class="tab-btn" onclick="loadProject(1)">2. EnvisionWare Recovery</button>
                     <button class="tab-btn" onclick="loadProject(2)">3. Sandboxed Print Server</button>
                 </div>
 
@@ -542,17 +569,33 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};`
             },
             {
                 tag: "PROJ_02",
-                title: "Isolated Pen-Testing Lab",
-                desc: "Segmented virtual lab utilizing stateful pfSense firewall policies to perfectly isolate penetration testing nodes from production subnets.",
+                title: "EnvisionWare LPT:One Print Architecture Recovery",
+                desc: "Researched, debugged, and restored a broken public library printing and PC reservation environment during an upgrade to EnvisionWare LPT:One. Identified configuration mismatches, resolved print spooler and JQE communication faults, and validated end-to-end print job queueing across public workstations.",
                 images: [],
-                ascii: `+------------------+      +-------------------+      +-------------------+
-|  Attacker VM     | ---> | Firewall Isolation| ---> | Target Subnet     |
-| (Kali Linux)     |      |  (pfSense Rules)  |      | (Metasploitable)  |
-+------------------+      +-------------------+      +-------------------+
-        |                          |                          |
-        +-------[ VLAN 10 ]--------+--------[ VLAN 20 ]-------+
-                10.0.10.0/24                 10.0.20.0/24`,
-                code: `# Firewall Isolation Policy - Block inter-VLAN movement\niptables -A FORWARD -s 10.0.10.0/24 -d 10.0.20.0/24 -j DROP`
+                ascii: `+-----------------------+      +------------------------+      +------------------------+
+| Public Workstation    | ---> | EnvisionWare JQE Host  | ---> | Print Release Kiosk /  |
+| LPT:One Client / Port |      | (lptonejqe.ewp Config) |      | Physical Printer Node  |
++-----------------------+      +------------------------+      +------------------------+
+            |                               |                              |
+            +-----[ TCP/IP Auto-Discovery ]-+------[ Job Queue Rules ]-----+-----[ Release / Charge ]`,
+                code: `;; EnvisionWare LPT:One JQE Configuration (lptonejqe.ewp)
+;; C:\\Program Files (x86)\\EnvisionWare\\lptone\\lptjqe\\config\\lptonejqe.ewp
+
+[Server_Settings]
+JQE_Port=10101
+AutoDiscovery=1
+DebugLogging=Enabled
+MaxQueueSize=500
+
+[Print_Rules]
+AllowGuestPrinting=True
+DefaultCostPerPage=0.15
+DuplexDiscount=0.05
+PurgeUnreleasedJobsAfterMinutes=120
+
+[Printer_Mapping]
+Primary_BW_Printer=10.0.10.45\\Library_BW_Queue
+Primary_Color_Printer=10.0.10.46\\Library_Color_Queue`
             },
             {
                 tag: "PROJ_03",
