@@ -150,6 +150,46 @@
             transition: width 0.1s linear;
         }
 
+        /* --- WELCOME POPUP WITH ANIMATED WINKING SMILEY --- */
+        #welcome-popup {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-panel);
+            border: 2px solid var(--border-panel);
+            box-shadow: 0 0 35px var(--trace-glow);
+            border-radius: 8px;
+            padding: 30px 50px;
+            text-align: center;
+            z-index: 10000;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .smiley-face {
+            font-size: 3rem;
+            color: var(--accent-purple);
+            font-weight: bold;
+            text-shadow: 0 0 15px var(--trace-glow);
+            letter-spacing: 2px;
+        }
+
+        .welcome-title {
+            color: var(--accent-purple);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--trace-glow);
+        }
+
         /* SUBTLE CRT SCANLINE OVERLAY */
         body::after {
             content: " ";
@@ -175,7 +215,6 @@
             opacity: 0.5;
         }
 
-        /* Animated Data Pulses */
         .data-pulse {
             stroke: var(--accent-purple);
             stroke-width: 2;
@@ -209,7 +248,6 @@
             opacity: 1;
         }
 
-        /* Panel Glass Style */
         .panel {
             background: var(--bg-panel);
             border: 1px solid var(--border-panel);
@@ -239,7 +277,6 @@
             align-items: center;
         }
 
-        /* Top Bar Title Panel */
         .header-panel {
             grid-column: 1 / -1;
             display: flex;
@@ -257,7 +294,6 @@
             gap: 10px;
         }
 
-        /* Navigation Panel */
         .nav-panel {
             grid-column: 1;
         }
@@ -289,7 +325,6 @@
             transform: translateX(4px);
         }
 
-        /* Central Workstation Panel */
         .main-panel {
             grid-column: 2;
             padding: 20px;
@@ -325,7 +360,6 @@
             box-shadow: 0 0 8px var(--trace-glow);
         }
 
-        /* 3-IMAGE GALLERY GRID */
         .image-gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -370,7 +404,6 @@
             text-align: center;
         }
 
-        /* LIGHTBOX MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -448,7 +481,6 @@
             line-height: 1.4;
         }
 
-        /* Smooth Breathing Status Indicator */
         .status-dot {
             width: 8px;
             height: 8px;
@@ -471,7 +503,7 @@
     <!-- CRT BOOT / LOAD-IN SCREEN -->
     <div id="boot-screen">
         <div class="boot-header">
-            <span>OPERATOR_SYSTEM BIOS v4.01</span>
+            <span>EMMA BROWN PORTFOLIO v6.9.0</span>
             <span>MEM_CHECK: 640K OK</span>
         </div>
         <div class="boot-logs" id="boot-log-container">
@@ -479,12 +511,18 @@
         </div>
         <div>
             <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
-                <span>INITIALIZING WORKSPACE MATRIX...</span>
+                <span>SYSTEM INITIALIZATION IN PROGRESS...</span>
                 <span id="boot-percentage">0%</span>
             </div>
             <div class="boot-progress-bar">
                 <div class="boot-progress-fill" id="boot-progress"></div>
             </div>
+        </div>
+
+        <!-- WELCOME POPUP WITH WINKING SMILEY -->
+        <div id="welcome-popup">
+            <div class="smiley-face" id="smiley-target">:)</div>
+            <div class="welcome-title">WELCOME!</div>
         </div>
     </div>
 
@@ -652,7 +690,7 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
     </div>
 
     <script>
-        // CRT BOOT SEQUENCE SCRIPT
+        // GENERAL LINUX TERMINAL BOOT SEQUENCE
         const bootSequence = [
             "Mounting local filesystems...",
             "Starting system logging daemon (rsyslogd)...",
@@ -683,24 +721,39 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
                 progressBar.style.width = percentage + '%';
                 progressText.innerText = percentage + '%';
 
-                setTimeout(runBootStep, 350 + Math.random() * 150);
+                setTimeout(runBootStep, 180 + Math.random() * 80);
             } else {
+                // Show Welcome Popup with Smiley Face
                 setTimeout(() => {
-                    const bootScreen = document.getElementById('boot-screen');
-                    bootScreen.style.transition = 'opacity 0.5s ease';
-                    bootScreen.style.opacity = '0';
-                    document.getElementById('workspace').classList.add('ready');
-                    
+                    const welcomePopup = document.getElementById('welcome-popup');
+                    welcomePopup.style.display = 'flex';
+
+                    // Animate smiley winking after a brief moment
+                    const smileyTarget = document.getElementById('smiley-target');
                     setTimeout(() => {
-                        bootScreen.style.display = 'none';
-                    }, 500);
-                }, 300);
+                        smileyTarget.innerText = ";)";
+                    }, 750);
+
+                    // Automatically transition to portfolio after exactly 1.5 seconds
+                    setTimeout(autoTransitionToPortfolio, 1500);
+                }, 200);
             }
+        }
+
+        function autoTransitionToPortfolio() {
+            const bootScreen = document.getElementById('boot-screen');
+            bootScreen.style.transition = 'opacity 0.5s ease';
+            bootScreen.style.opacity = '0';
+            document.getElementById('workspace').classList.add('ready');
+            
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+            }, 500);
         }
 
         // Start CRT Boot sequence on page load
         window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(runBootStep, 400);
+            setTimeout(runBootStep, 300);
         });
 
         const projects = [
