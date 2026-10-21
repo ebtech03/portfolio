@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circuit Schematic Portfolio</title>
+    <title>Cyber-Purple Circuit Schematic Portfolio</title>
     <style>
         :root {
-            --bg-teal: #082d32;
-            --bg-panel: rgba(7, 20, 26, 0.95);
-            --border-panel: #14b8a6;
-            --trace-color: #0d9488;
-            --trace-glow: #2dd4bf;
-            --text-main: #f0fdfa;
-            --text-muted: #99f6e4;
-            --accent-cyan: #2dd4bf;
+            /* REGENERATED CYBER-PURPLE PALETTE */
+            --bg-purple-deep: #07020a;
+            --bg-panel: rgba(14, 5, 20, 0.95);
+            --border-panel: #d112d1;
+            --trace-color: #8c0c8c;
+            --trace-glow: #e024e0;
+            --text-main: #f0f0ff;
+            --text-muted: #d680d6;
+            --accent-purple: #f31df3;
             --font-mono: 'Courier New', Courier, monospace;
         }
 
@@ -23,10 +24,10 @@
             padding: 0;
         }
 
-        /* CUSTOM RETRO TEAL CRT SCROLLBARS FOR ALL PANELS */
+        /* CUSTOM RETRO PURPLE SCROLLBARS */
         * {
             scrollbar-width: thin;
-            scrollbar-color: var(--border-panel) #03181a;
+            scrollbar-color: var(--border-panel) #0e0514;
         }
 
         *::-webkit-scrollbar {
@@ -35,8 +36,8 @@
         }
 
         *::-webkit-scrollbar-track {
-            background: #03181a;
-            border: 1px solid rgba(20, 184, 166, 0.2);
+            background: #0e0514;
+            border: 1px solid rgba(209, 18, 209, 0.2);
             border-radius: 4px;
         }
 
@@ -47,13 +48,13 @@
         }
 
         *::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-cyan);
+            background: var(--accent-purple);
             box-shadow: 0 0 10px var(--trace-glow);
         }
 
-        /* Custom Old-School Retro Teal Cursor (Base64 Encoded) */
+        /* Custom Old-School Retro Magenta Cursor */
         body {
-            background-color: var(--bg-teal);
+            background-color: var(--bg-purple-deep);
             color: var(--text-main);
             font-family: var(--font-mono);
             min-height: 100vh;
@@ -61,21 +62,101 @@
             flex-direction: column;
             overflow-x: hidden;
             position: relative;
-            cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMmRkNGJmIiBzdHJva2U9IiMwODJkMzIiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBkPSJNMCAwbDcgMTggMy03IDctM0wwIDB6Ii8+PC9zdmc+'), default !important;
+            cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZjMxZGYzIiBzdHJva2U9IiMwNzAyMGEiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBkPSJNMCAwbDcgMTggMy03IDctM0wwIDB6Ii8+PC9zdmc+'), default !important;
         }
 
-        /* Interactive Element Cursor (Crosshair / Pointer) */
+        /* Interactive Element Cursor */
         button, a, input, .nav-item, .tab-btn, .proj-img {
-            cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMmRkNGJmIiBzdHJva2U9IiMwODJkMzIiIHN0cm9rZS13aWR0aD0iMS41Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTEyIDJ2NG0wIDEydjRNMiAxMmg0bTEyIDBoNCIvPjwvc3ZnPg==') 12 12, pointer !important;
+            cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZjMxZGYzIiBzdHJva2U9IiMwNzAyMGEiIHN0cm9rZS13aWR0aD0iMS41Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI0Ii8+PHBhdGggZD0iTTEyIDJ2NG0wIDEydjRNMiAxMmg0bTEyIDBoNCIvPjwvc3ZnPg==') 12 12, pointer !important;
         }
 
-        /* SUBTLE CRT SCANLINE OVERLAY (No Glitches, Just Depth) */
+        /* --- CRT BOOT-UP / POWER-ON SCREEN --- */
+        #boot-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: #030005;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
+            box-sizing: border-box;
+            color: var(--accent-purple);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            overflow: hidden;
+            animation: crtTurnOn 0.4s ease-out forwards;
+        }
+
+        @keyframes crtTurnOn {
+            0% {
+                transform: scale(1, 0.002) cubic-bezier(0.1, 0, 0.1, 1);
+                filter: brightness(30);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1, 0.05);
+                filter: brightness(10);
+            }
+            100% {
+                transform: scale(1, 1);
+                filter: brightness(1);
+                opacity: 1;
+            }
+        }
+
+        .boot-header {
+            border-bottom: 1px solid var(--border-panel);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .boot-logs {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            color: var(--text-muted);
+        }
+
+        .boot-log-line {
+            display: flex;
+            gap: 15px;
+        }
+
+        .boot-log-line .ok {
+            color: var(--accent-purple);
+            font-weight: bold;
+        }
+
+        .boot-progress-bar {
+            width: 100%;
+            height: 12px;
+            border: 1px solid var(--border-panel);
+            background: rgba(140, 12, 140, 0.1);
+            margin-top: 15px;
+            border-radius: 2px;
+            padding: 2px;
+        }
+
+        .boot-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-purple);
+            box-shadow: 0 0 10px var(--trace-glow);
+            transition: width 0.1s linear;
+        }
+
+        /* SUBTLE CRT SCANLINE OVERLAY */
         body::after {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(140, 12, 140, 0.15) 50%);
             background-size: 100% 4px;
             z-index: 999;
             pointer-events: none;
@@ -94,9 +175,9 @@
             opacity: 0.5;
         }
 
-        /* Animated Data Pulses along trace lines */
+        /* Animated Data Pulses */
         .data-pulse {
-            stroke: var(--accent-cyan);
+            stroke: var(--accent-purple);
             stroke-width: 2;
             stroke-dasharray: 10 40;
             animation: flowData 6s linear infinite;
@@ -120,9 +201,15 @@
             margin: 0 auto;
             width: 100%;
             height: calc(100vh - 40px);
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
         }
 
-        /* Panel Glass Style with Smooth Hover Lift */
+        .workspace.ready {
+            opacity: 1;
+        }
+
+        /* Panel Glass Style */
         .panel {
             background: var(--bg-panel);
             border: 1px solid var(--border-panel);
@@ -136,16 +223,16 @@
         }
 
         .panel:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 8px 32px 0 rgba(20, 184, 166, 0.15);
+            border-color: var(--accent-purple);
+            box-shadow: 0 8px 32px 0 rgba(140, 12, 140, 0.15);
         }
 
         .panel-header {
-            background: rgba(20, 184, 166, 0.15);
+            background: rgba(140, 12, 140, 0.15);
             padding: 8px 12px;
             border-bottom: 1px solid var(--border-panel);
             font-size: 0.8rem;
-            color: var(--accent-cyan);
+            color: var(--accent-purple);
             letter-spacing: 1px;
             display: flex;
             justify-content: space-between;
@@ -183,8 +270,8 @@
         }
 
         .nav-item {
-            background: rgba(20, 184, 166, 0.08);
-            border: 1px solid rgba(20, 184, 166, 0.3);
+            background: rgba(140, 12, 140, 0.08);
+            border: 1px solid rgba(140, 12, 140, 0.3);
             color: var(--text-main);
             padding: 10px;
             border-radius: 4px;
@@ -196,7 +283,7 @@
 
         .nav-item:hover, .nav-item.active {
             background: var(--border-panel);
-            color: #042f2e;
+            color: #07020a;
             font-weight: bold;
             box-shadow: 0 0 12px var(--trace-glow);
             transform: translateX(4px);
@@ -216,7 +303,7 @@
         }
 
         .tab-btn {
-            background: rgba(20, 184, 166, 0.1);
+            background: rgba(140, 12, 140, 0.1);
             border: 1px solid var(--border-panel);
             color: var(--text-muted);
             padding: 6px 12px;
@@ -227,13 +314,13 @@
         }
 
         .tab-btn:hover {
-            background: rgba(20, 184, 166, 0.25);
+            background: rgba(140, 12, 140, 0.25);
             color: var(--text-main);
         }
 
         .tab-btn.active {
             background: var(--border-panel);
-            color: #042f2e;
+            color: #07020a;
             font-weight: bold;
             box-shadow: 0 0 8px var(--trace-glow);
         }
@@ -247,7 +334,7 @@
         }
 
         .proj-img-wrapper {
-            background: rgba(3, 24, 26, 0.8);
+            background: rgba(14, 5, 20, 0.8);
             border: 1px solid var(--border-panel);
             border-radius: 4px;
             padding: 6px;
@@ -258,7 +345,7 @@
         }
 
         .proj-img-wrapper:hover {
-            border-color: var(--accent-cyan);
+            border-color: var(--accent-purple);
             box-shadow: 0 0 14px var(--trace-glow);
             transform: translateY(-3px);
         }
@@ -268,7 +355,7 @@
             height: 110px;
             object-fit: cover;
             border-radius: 2px;
-            border: 1px solid rgba(20, 184, 166, 0.4);
+            border: 1px solid rgba(140, 12, 140, 0.4);
             transition: filter 0.2s ease;
         }
 
@@ -283,14 +370,14 @@
             text-align: center;
         }
 
-        /* LIGHTBOX MODAL FOR ENLARGED IMAGES */
+        /* LIGHTBOX MODAL */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background-color: rgba(4, 18, 21, 0.92);
+            background-color: rgba(14, 5, 20, 0.92);
             backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
@@ -313,7 +400,7 @@
 
         .modal-caption {
             margin-top: 15px;
-            color: var(--accent-cyan);
+            color: var(--accent-purple);
             font-size: 0.9rem;
             letter-spacing: 1px;
         }
@@ -321,10 +408,10 @@
         .close-modal {
             position: absolute;
             top: 25px; right: 35px;
-            color: var(--accent-cyan);
+            color: var(--accent-purple);
             font-size: 0.9rem;
             font-weight: bold;
-            background: rgba(7, 20, 26, 0.9);
+            background: rgba(14, 5, 20, 0.9);
             border: 1px solid var(--border-panel);
             padding: 8px 14px;
             border-radius: 4px;
@@ -333,16 +420,16 @@
 
         .close-modal:hover {
             background: var(--border-panel);
-            color: #042f2e;
+            color: #07020a;
             box-shadow: 0 0 12px var(--trace-glow);
         }
 
         .ascii-view {
-            background: #03181a;
+            background: #030105;
             border: 1px solid var(--border-panel);
             padding: 15px;
             border-radius: 4px;
-            color: var(--accent-cyan);
+            color: var(--accent-purple);
             font-size: 0.75rem;
             white-space: pre;
             overflow-x: auto;
@@ -351,7 +438,7 @@
         }
 
         .code-view {
-            background: #03181a;
+            background: #030105;
             border: 1px solid var(--border-panel);
             padding: 15px;
             border-radius: 4px;
@@ -365,79 +452,99 @@
         .status-dot {
             width: 8px;
             height: 8px;
-            background-color: var(--accent-cyan);
+            background-color: var(--accent-purple);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-purple);
             display: inline-block;
             animation: pulseGlow 2s infinite ease-in-out;
         }
 
         @keyframes pulseGlow {
-            0% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 4px var(--accent-cyan); }
-            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px var(--accent-cyan); }
-            100% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 4px var(--accent-cyan); }
+            0% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 4px var(--accent-purple); }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px var(--accent-purple); }
+            100% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 4px var(--accent-purple); }
         }
     </style>
 </head>
 <body>
 
+    <!-- CRT BOOT / LOAD-IN SCREEN -->
+    <div id="boot-screen">
+        <div class="boot-header">
+            <span>OPERATOR_SYSTEM BIOS v4.01</span>
+            <span>MEM_CHECK: 640K OK</span>
+        </div>
+        <div class="boot-logs" id="boot-log-container">
+            <!-- Dynamic JavaScript Boot Lines -->
+        </div>
+        <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
+                <span>INITIALIZING WORKSPACE MATRIX...</span>
+                <span id="boot-percentage">0%</span>
+            </div>
+            <div class="boot-progress-bar">
+                <div class="boot-progress-fill" id="boot-progress"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Background Circuit Lines & Animated Data Flow Pulses -->
     <svg class="circuit-bg-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <pattern id="circuit-grid" width="120" height="120" patternUnits="userSpaceOnUse">
-                <path d="M 10 10 H 110 V 110 H 10 Z" fill="none" stroke="#0d9488" stroke-width="1" stroke-dasharray="2,4"/>
-                <path d="M 0 30 H 40 L 60 50 H 120" fill="none" stroke="#0d9488" stroke-width="1.5"/>
-                <path d="M 30 0 V 40 L 50 60 V 120" fill="none" stroke="#0d9488" stroke-width="1.5"/>
-                <path d="M 120 90 H 80 L 60 70 H 0" fill="none" stroke="#0d9488" stroke-width="1.5"/>
-                <circle cx="40" cy="30" r="2.5" fill="#2dd4bf"/>
-                <circle cx="60" cy="50" r="2.5" fill="#2dd4bf"/>
-                <circle cx="50" cy="60" r="2.5" fill="#2dd4bf"/>
-                <circle cx="80" cy="90" r="2.5" fill="#2dd4bf"/>
+                <path d="M 10 10 H 110 V 110 H 10 Z" fill="none" stroke="#8c0c8c" stroke-width="1" stroke-dasharray="2,4"/>
+                <path d="M 0 30 H 40 L 60 50 H 120" fill="none" stroke="#8c0c8c" stroke-width="1.5"/>
+                <path d="M 30 0 V 40 L 50 60 V 120" fill="none" stroke="#8c0c8c" stroke-width="1.5"/>
+                <path d="M 120 90 H 80 L 60 70 H 0" fill="none" stroke="#8c0c8c" stroke-width="1.5"/>
+                <circle cx="40" cy="30" r="2.5" fill="#f31df3"/>
+                <circle cx="60" cy="50" r="2.5" fill="#f31df3"/>
+                <circle cx="50" cy="60" r="2.5" fill="#f31df3"/>
+                <circle cx="80" cy="90" r="2.5" fill="#f31df3"/>
             </pattern>
         </defs>
 
         <rect width="100%" height="100%" fill="url(#circuit-grid)"/>
 
-        <!-- LEFT SIDE CIRCUITS & ANIMATED PULSES -->
-        <g stroke="#14b8a6" stroke-width="1.5" fill="none">
-            <rect x="25" y="120" width="40" height="90" fill="#042023" rx="2"/>
-            <circle cx="35" cy="130" r="3" fill="#2dd4bf"/>
+        <!-- LEFT SIDE CIRCUITS -->
+        <g stroke="#d112d1" stroke-width="1.5" fill="none">
+            <rect x="25" y="120" width="40" height="90" fill="#030105" rx="2"/>
+            <circle cx="35" cy="130" r="3" fill="#f31df3"/>
             <path d="M 65 140 H 105 L 125 160 H 180" />
             <path class="data-pulse" d="M 65 140 H 105 L 125 160 H 180" />
             <path d="M 65 160 H 115 L 135 180 H 190" />
             <path d="M 65 180 H 125 L 145 200 H 200" />
-            <circle cx="180" cy="160" r="3" fill="#2dd4bf"/>
-            <circle cx="190" cy="180" r="3" fill="#2dd4bf"/>
+            <circle cx="180" cy="160" r="3" fill="#f31df3"/>
+            <circle cx="190" cy="180" r="3" fill="#f31df3"/>
 
-            <rect x="20" y="450" width="45" height="110" fill="#042023" rx="2"/>
+            <rect x="20" y="450" width="45" height="110" fill="#030105" rx="2"/>
             <path d="M 65 470 H 110 L 130 490 H 180" />
             <path class="data-pulse" d="M 65 470 H 110 L 130 490 H 180" />
             <path d="M 65 500 H 120 L 140 520 H 190" />
             <path d="M 65 530 H 130 L 150 550 H 200" />
-            <circle cx="180" cy="490" r="3" fill="#2dd4bf"/>
-            <circle cx="190" cy="520" r="3" fill="#2dd4bf"/>
+            <circle cx="180" cy="490" r="3" fill="#f31df3"/>
+            <circle cx="190" cy="520" r="3" fill="#f31df3"/>
         </g>
 
-        <!-- RIGHT SIDE CIRCUITS & ANIMATED PULSES -->
-        <g stroke="#14b8a6" stroke-width="1.5" fill="none">
-            <rect x="94%" y="150" width="40" height="100" fill="#042023" rx="2"/>
+        <!-- RIGHT SIDE CIRCUITS -->
+        <g stroke="#d112d1" stroke-width="1.5" fill="none">
+            <rect x="94%" y="150" width="40" height="100" fill="#030105" rx="2"/>
             <path d="M 94% 170 H 88% L 86% 190 H 80%" />
             <path class="data-pulse" d="M 94% 170 H 88% L 86% 190 H 80%" />
             <path d="M 94% 200 H 87% L 85% 220 H 78%" />
-            <circle cx="80%" cy="190" r="3" fill="#2dd4bf"/>
-            <circle cx="78%" cy="220" r="3" fill="#2dd4bf"/>
+            <circle cx="80%" cy="190" r="3" fill="#f31df3"/>
+            <circle cx="78%" cy="220" r="3" fill="#f31df3"/>
 
-            <rect x="93%" y="480" width="45" height="90" fill="#042023" rx="2"/>
+            <rect x="93%" y="480" width="45" height="90" fill="#030105" rx="2"/>
             <path d="M 93% 500 H 87% L 85% 520 H 81%" />
             <path class="data-pulse" d="M 93% 500 H 87% L 85% 520 H 81%" />
             <path d="M 93% 530 H 86% L 84% 550 H 80%" />
-            <circle cx="81%" cy="520" r="3" fill="#2dd4bf"/>
-            <circle cx="80%" cy="550" r="3" fill="#2dd4bf"/>
+            <circle cx="81%" cy="520" r="3" fill="#f31df3"/>
+            <circle cx="80%" cy="550" r="3" fill="#f31df3"/>
         </g>
     </svg>
 
     <!-- Main Workspace UI -->
-    <div class="workspace">
+    <div class="workspace" id="workspace">
         <!-- Top Header Panel -->
         <div class="panel header-panel">
             <div class="sys-title">
@@ -469,7 +576,7 @@
                     <span>Operator Profile</span>
                 </div>
                 <div class="code-view" style="font-size: 0.95rem; line-height: 1.6; padding: 20px;">
-                    <p style="color: var(--accent-cyan); margin-bottom: 12px; font-size: 1.05rem; font-weight: bold;">> Meet the Operator</p>
+                    <p style="color: var(--accent-purple); margin-bottom: 12px; font-size: 1.05rem; font-weight: bold;">> Meet the Operator</p>
                     <p style="margin-bottom: 12px;">Hi! My name is Emma, an IT Specialist and network engineering student with a passion for systems architecture, hardware tinkering, and cybersecurity operations.</p>
                     <p style="margin-bottom: 12px;">From Network Engineering and systems administration to computer repair, hardware reverse-engineering, and security hardening:</p>
                     <p style="margin-bottom: 12px;">I love exploring how things work, using my skills to make people's jobs run smoothly, and expanding my technical expertise across every layer of the stack!</p>
@@ -491,7 +598,7 @@
                     <button class="tab-btn" onclick="loadProject(2)">3. Sandboxed Print Server</button>
                 </div>
 
-                <h3 id="proj-title" style="color: var(--accent-cyan); margin-bottom: 8px;">AlphaSmart 3000 USB Matrix Controller</h3>
+                <h3 id="proj-title" style="color: var(--accent-purple); margin-bottom: 8px;">AlphaSmart 3000 USB Matrix Controller</h3>
                 <p id="proj-desc" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">
                     Decoded an AlphaSmart 3000 passive key matrix and engineered a custom USB HID controller interface using a Teensy 4.1 microcontroller, CD4066 bilateral analog switches, and multiplexers.
                 </p>
@@ -525,11 +632,11 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
                     <span>Technical Capabilities Matrix</span>
                 </div>
                 <div class="code-view">
-                    <p style="color: var(--accent-cyan); margin-bottom: 10px;">// NETWORKING & SYSTEMS</p>
+                    <p style="color: var(--accent-purple); margin-bottom: 10px;">// NETWORKING & SYSTEMS</p>
                     <p>• VLAN Tagging (802.1Q), Inter-VLAN Routing, pfSense/OPNsense Firewall Rulesets</p>
                     <p>• Linux System Administration, Network Capture & analysis (Wireshark), Sandboxed deployments</p>
                     <br>
-                    <p style="color: var(--accent-cyan); margin-bottom: 10px;">// HARDWARE SYNTHESIS & DEV</p>
+                    <p style="color: var(--accent-purple); margin-bottom: 10px;">// HARDWARE SYNTHESIS & DEV</p>
                     <p>• Microcontrollers (Teensy 4.1), Matrix Scanning, CD4066 Analog Switching, Multiplexing</p>
                     <p>• C++ (Teensy HID), Python, Bash Automation, HTML/CSS/Vanilla JavaScript</p>
                 </div>
@@ -545,6 +652,57 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
     </div>
 
     <script>
+        // CRT BOOT SEQUENCE SCRIPT
+        const bootSequence = [
+            "Mounting local filesystems...",
+            "Starting system logging daemon (rsyslogd)...",
+            "Initializing hardware monitoring sensors...",
+            "Configuring network interface eth0...",
+            "Starting OpenSSH server daemon (sshd)...",
+            "Starting Cron job scheduler (cron)...",
+            "Starting System Message Bus (dbus)...",
+            "Checking disk quotas and volume groups...",
+            "Setting up system clock via NTP server...",
+            "Starting Graphical User Interface Environment..."
+        ];
+
+        let currentStep = 0;
+        const logContainer = document.getElementById('boot-log-container');
+        const progressBar = document.getElementById('boot-progress');
+        const progressText = document.getElementById('boot-percentage');
+
+        function runBootStep() {
+            if (currentStep < bootSequence.length) {
+                const line = document.createElement('div');
+                line.className = 'boot-log-line';
+                line.innerHTML = `<span>> ${bootSequence[currentStep]}</span> <span class="ok">[OK]</span>`;
+                logContainer.appendChild(line);
+
+                currentStep++;
+                const percentage = Math.round((currentStep / bootSequence.length) * 100);
+                progressBar.style.width = percentage + '%';
+                progressText.innerText = percentage + '%';
+
+                setTimeout(runBootStep, 350 + Math.random() * 150);
+            } else {
+                setTimeout(() => {
+                    const bootScreen = document.getElementById('boot-screen');
+                    bootScreen.style.transition = 'opacity 0.5s ease';
+                    bootScreen.style.opacity = '0';
+                    document.getElementById('workspace').classList.add('ready');
+                    
+                    setTimeout(() => {
+                        bootScreen.style.display = 'none';
+                    }, 500);
+                }, 300);
+            }
+        }
+
+        // Start CRT Boot sequence on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runBootStep, 400);
+        });
+
         const projects = [
             {
                 tag: "PROJ_01",
@@ -621,7 +779,6 @@ Primary_Color_Printer=10.0.10.46\\Library_Color_Queue`
             document.getElementById('proj-ascii').innerText = p.ascii;
             document.getElementById('proj-code').innerText = p.code;
 
-            // Render 3-image gallery if images exist
             const gallery = document.getElementById('proj-gallery');
             if (gallery) {
                 if (p.images && p.images.length > 0) {
@@ -661,7 +818,6 @@ Primary_Color_Printer=10.0.10.46\\Library_Color_Queue`
             document.getElementById('skills-view').style.display = section === 'skills' ? 'block' : 'none';
         }
 
-        // Initialize default view gallery on page load
         loadProject(0);
     </script>
 </body>
