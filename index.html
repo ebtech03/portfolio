@@ -6,7 +6,7 @@
     <title>Portfolio</title>
     <style>
         :root {
-            /* REGENERATED CYBER-PURPLE PALETTE */
+            /* CYBER-PURPLE PALETTE */
             --bg-purple-deep: #07020a;
             --bg-panel: rgba(14, 5, 20, 0.95);
             --border-panel: #d112d1;
@@ -150,7 +150,7 @@
             transition: width 0.1s linear;
         }
 
-        /* --- WELCOME POPUP WITH ANIMATED WINKING SMILEY --- */
+        /* --- WELCOME POPUP WITH WINKING SMILEY --- */
         #welcome-popup {
             display: none;
             position: absolute;
@@ -282,7 +282,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 10px 20px;
         }
 
         .sys-title {
@@ -292,6 +292,34 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        /* LIVE TELEMETRY GRAPH STYLING */
+        .telemetry-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(3, 1, 5, 0.8);
+            padding: 4px 12px;
+            border: 1px solid rgba(209, 18, 209, 0.3);
+            border-radius: 4px;
+        }
+
+        .telemetry-info {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .telemetry-graph {
+            width: 100px;
+            height: 24px;
+            background: #030105;
+            border: 1px solid var(--border-panel);
+            border-radius: 2px;
+            overflow: hidden;
         }
 
         .nav-panel {
@@ -503,7 +531,7 @@
     <!-- CRT BOOT / LOAD-IN SCREEN -->
     <div id="boot-screen">
         <div class="boot-header">
-            <span>EMMA BROWN PORTFOLIO v6.9.0</span>
+            <span>BOOTING SYSTEM...</span>
             <span>MEM_CHECK: 640K OK</span>
         </div>
         <div class="boot-logs" id="boot-log-container">
@@ -522,7 +550,7 @@
         <!-- WELCOME POPUP WITH WINKING SMILEY -->
         <div id="welcome-popup">
             <div class="smiley-face" id="smiley-target">:)</div>
-            <div class="welcome-title">WELCOME!</div>
+            <div class="welcome-title">WELCOME</div>
         </div>
     </div>
 
@@ -583,26 +611,38 @@
 
     <!-- Main Workspace UI -->
     <div class="workspace" id="workspace">
-        <!-- Top Header Panel -->
+        <!-- Top Header Panel with Blinking Dots on Both Sides -->
         <div class="panel header-panel">
             <div class="sys-title">
-                <span class="status-dot"></span> OPERATOR_LOG :: SCHEMATIC_VIEW
+                <span class="status-dot"></span> PORTFOLIO CLI <span class="status-dot"></span>
             </div>
+
+            <!-- LIVE TELEMETRY GRAPH -->
+            <div class="telemetry-container">
+                <div class="telemetry-info">
+                    <span>CPU: <strong id="cpu-val" style="color:var(--accent-purple);">24%</strong></span>
+                    <span>MEM: <strong style="color:var(--text-muted);">1.2G</strong></span>
+                </div>
+                <svg class="telemetry-graph" id="telemetry-svg" viewBox="0 0 100 24">
+                    <path id="graph-path" d="M 0 12 L 10 12 L 20 12 L 30 12 L 40 12 L 50 12 L 60 12 L 70 12 L 80 12 L 90 12 L 100 12" fill="none" stroke="#f31df3" stroke-width="1.5"/>
+                </svg>
+            </div>
+
             <div style="font-size: 0.8rem; color: var(--text-muted);">
-                NODE: 10.0.10.1/24 | STATUS: ACTIVE
+                IP: 127.0.0.1 | STATUS: ACTIVE
             </div>
         </div>
 
         <!-- Left Navigation Panel -->
         <div class="panel nav-panel">
             <div class="panel-header">
-                <span>Bus Navigation [U1]</span>
+                <span>Navigation</span>
                 <span>[0x01]</span>
             </div>
             <div class="nav-list">
-                <button class="nav-item active" onclick="showSection('about')">> /about [operator]</button>
-                <button class="nav-item" onclick="showSection('projects')">> /projects [labs]</button>
-                <button class="nav-item" onclick="showSection('skills')">> /skills [matrix]</button>
+                <button class="nav-item active" onclick="showSection('about')">~/about me</button>
+                <button class="nav-item" onclick="showSection('projects')">~/projects</button>
+                <button class="nav-item" onclick="showSection('skills')">~/skills</button>
             </div>
         </div>
 
@@ -690,6 +730,79 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
     </div>
 
     <script>
+        // WEB AUDIO API FOR RETRO SOUND EFFECTS (Clean Initialization)
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioCtx();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playRetroClick(type = 'click') {
+            try {
+                if (!audioCtx) return; // Prevent sound before user interaction warms up audio engine
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(900, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(140, audioCtx.currentTime + 0.05);
+                    gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                } else if (type === 'beep') {
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(1400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.06);
+                }
+            } catch (e) {
+                // Audio fallback
+            }
+        }
+
+        // Initialize audio engine cleanly on first user pointer click
+        window.addEventListener('pointerdown', initAudio, { once: true });
+
+        // Add retro sound listeners to interactive elements
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('button, .nav-item, .tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => playRetroClick('click'));
+            });
+        });
+
+        // LIVE TELEMETRY GRAPH ENGINE
+        const points = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12];
+        function updateTelemetry() {
+            points.shift();
+            const newVal = Math.floor(Math.random() * 16) + 4;
+            points.push(newVal);
+
+            let d = "M 0 " + points[0];
+            for (let i = 1; i < points.length; i++) {
+                d += ` L ${i * 10} ${points[i]}`;
+            }
+            const graphPath = document.getElementById('graph-path');
+            if (graphPath) graphPath.setAttribute('d', d);
+
+            const cpuVal = document.getElementById('cpu-val');
+            if (cpuVal) cpuVal.innerText = Math.round(((24 - newVal) / 24) * 100) + '%';
+        }
+        setInterval(updateTelemetry, 400);
+
         // GENERAL LINUX TERMINAL BOOT SEQUENCE
         const bootSequence = [
             "Mounting local filesystems...",
@@ -716,6 +829,8 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
                 line.innerHTML = `<span>> ${bootSequence[currentStep]}</span> <span class="ok">[OK]</span>`;
                 logContainer.appendChild(line);
 
+                playRetroClick('beep');
+
                 currentStep++;
                 const percentage = Math.round((currentStep / bootSequence.length) * 100);
                 progressBar.style.width = percentage + '%';
@@ -732,6 +847,7 @@ const int colPins[8] = {14, 15, 16, 17, 18, 19, 20, 21};
                     const smileyTarget = document.getElementById('smiley-target');
                     setTimeout(() => {
                         smileyTarget.innerText = ";)";
+                        playRetroClick('beep');
                     }, 750);
 
                     // Automatically transition to portfolio after exactly 1.5 seconds
@@ -854,10 +970,12 @@ Primary_Color_Printer=10.0.10.46\\Library_Color_Queue`
             document.getElementById('modal-img').src = src;
             document.getElementById('modal-caption').innerText = caption;
             modal.style.display = 'flex';
+            playRetroClick('click');
         }
 
         function closeModal() {
             document.getElementById('image-modal').style.display = 'none';
+            playRetroClick('click');
         }
 
         function showSection(section) {
